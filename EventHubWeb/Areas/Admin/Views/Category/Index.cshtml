@@ -1,0 +1,51 @@
+﻿@model List<Category>
+
+<div class="container">
+    <div class="spacer"></div>
+
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1>Категории</h1>
+        </div>
+        <div>
+            <a asp-controller="Category" asp-action="Create" class="btn btn-primary" style="background-color: #94c045; border: #94c045;">
+                <i class="bi bi-plus-circle"></i> Добави
+            </a>
+        </div>
+    </div>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>
+                    Име на категорията
+                </th>
+                <th>
+                    Описание на категорията
+                </th>
+                <th>
+                    Действия
+                </th>
+        </thead>
+        <tbody>
+            @foreach (var cat in Model)
+            {
+                <tr>
+                    <td>@cat.Name</td>
+                    <td>@cat.Description</td>
+                    <td>
+                        <div class="w-75 btn-group" role="group">
+                            <a asp-controller="Category" asp-action="Edit" asp-route-id="@cat.Id" class="btn btn-primary mx-2" style="background-color: #94c045; border: #94c045;">
+                                <i class="bi bi-pencil-square"></i> Редактирай
+                            </a>
+                            <a asp-controller="Category" asp-action="Delete" asp-route-id="@cat.Id" class="btn btn-danger mx-2">
+                                <i class="bi bi-trash-fill"></i> Изтрий
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>

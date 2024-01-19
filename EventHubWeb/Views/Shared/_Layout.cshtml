@@ -1,49 +1,116 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="bg">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - EventHubWeb</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/EventHubWeb.styles.css" asp-append-version="true" />
+
+    <title>EventHub</title>
+
+    <!-- Favicons -->
+    <link href="~/images/favicon.png" rel="icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="~/vendor/aos/aos.css" rel="stylesheet">
+    <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="~/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="~/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="~/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="~/css/style.css" rel="stylesheet">
+
+    <!-- Cloud tables -->
+    <link rel="stylesheet" href="//cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" />
 </head>
+
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">EventHubWeb</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top d-flex align-items-center">
+        <div class="container d-flex align-items-center justify-content-between">
+
+            <div class="logo">
+                <h1 class="text-light"><a asp-area="User" asp-controller="Home" asp-action="Index">EventHub</a></h1>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+
+            <nav id="navbar" class="navbar">
+                <ul>
+                    <li class="dropdown">
+                        <a asp-area="User" asp-controller="Event" asp-action="Index"><span>Събития</span> <i class="bi bi-chevron-down"></i></a>
+                        <ul>
+                            <li><a asp-area="User" asp-controller="Event" asp-action="Index">Събития</a></li>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li><a asp-area="User" asp-controller="Event" asp-action="MyEvents">Моите събития</a></li>
+                            }
+                        </ul>
+                    </li>
+
+                    @if (User.IsInRole(StaticDetails.Role_Admin))
+                    {
+                        <li class="dropdown">
+                            <a><span>Администрация</span> <i class="bi bi-chevron-down"></i></a>
+                            <ul>
+                                <li><a asp-area="Admin" asp-controller="Event" asp-action="Index">Събития</a></li>
+                                <li><a asp-area="Admin" asp-controller="Category" asp-action="Index">Категории</a></li>
+                                <li><a asp-area="Admin" asp-controller="ApplicationUser" asp-action="Index">Потребители</a></li>
+                            </ul>
+                        </li>
+                    }
+
+                    <li><a asp-area="User" asp-controller="Home" asp-action="Contacts">Контакти</a></li>
+
+                    <partial name="_LoginPartial" />
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav>
+
+        </div>
+    </header><!-- End Header -->
+
+    <div>
+        <main role="main" id="main">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <!-- ======= Footer ======= -->
+    <footer id="footer">
+
         <div class="container">
-            &copy; 2023 - EventHubWeb - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="copyright">
+                EventHub
+            </div>
+            <div class="credits">
+                Виктор Вукев
+            </div>
         </div>
-    </footer>
+    </footer><!-- End Footer -->
+    <!-- Vendor JS Files -->
+    <script src="~/vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="~/vendor/aos/aos.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="~/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="~/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="~/vendor/waypoints/noframework.waypoints.js"></script>
+    <script src="~/vendor/php-email-form/validate.js"></script>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <!-- Template Main JS File -->
+    <script src="~/js/main.js"></script>
+
+    <!-- Cloud tables -->
+    <script src="//cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js" asp-append-version="true"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>

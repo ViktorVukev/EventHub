@@ -1,0 +1,38 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@{
+    // Retrieve the ApplicationUser
+    var user = await UserManager.GetUserAsync(User);
+    // Get the FirstName property
+    var firstName = user?.FirstName;
+}
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="dropdown">
+            <a><span>Здравей, @firstName!</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+                <li>
+                    <a asp-area="Identity" asp-page="/Account/Manage/ChangePassword">
+                        <button class="nav-link btn btn-link text-dark border-0">Профил</button>
+                   </a>
+                </li>
+                <li style="padding-left: 1rem;">
+                    <form id="logoutForm" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                        <button id="logout" type="submit" class="nav-link btn btn-link text-dark border-0">Изход</button>
+                    </form>
+                </li>
+            </ul>
+        </li>
+    }
+    else
+    {
+        <ul>
+            <li><a id="register" asp-area="Identity" asp-page="/Account/Register">Регистрация</a></li>
+            <li><a id="login" asp-area="Identity" asp-page="/Account/Login">Вход</a></li>
+        </ul>
+    }
+</ul>

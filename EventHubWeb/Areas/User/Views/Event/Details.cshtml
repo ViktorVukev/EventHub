@@ -1,0 +1,71 @@
+﻿@model Event
+
+<section id="breadcrumbs" class="breadcrumbs">
+    <div class="breadcrumb-hero">
+        <div class="container">
+            <div class="breadcrumb-hero">
+                <h2>@Model.Name</h2>
+                <p>@Model.DateAndTime.ToString()</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="portfolio-details" class="portfolio-details">
+    <div class="container">
+        <div class="row gy-4">
+
+            <div class="col-lg-8">
+                <div class="portfolio-details-slider swiper">
+                    <div class="swiper-wrapper align-items-center">
+                        <div class="swiper-slide">
+                            <img src="@Model.ImageUrl">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (!ViewBag.IsAlreadyBooked)
+                        {
+                            <div class="spacer"></div>
+                            <form method="post">
+                                <input hidden asp-for="Id" type="text" class="form-control">
+                                <button type="submit" class="btn btn-primary" style="background-color: #94c045; border: #94c045; margin-bottom: 1rem;">Ще присъствам</button>
+                            </form>
+                        }
+                    }
+                    else
+                    {
+                        <div class="spacer"></div>
+                        <a asp-area="Identity" asp-page="/Account/Login">
+                            <button type="submit" class="btn btn-primary" style="background-color: #94c045; border: #94c045; margin-bottom: 1rem;">Необходимо е да влезете в профил, за да отбележите присъствие.</button>
+                        </a>
+                    }
+                    <a asp-action="MyEvents">
+                        <button type="submit" class="btn btn-primary" style="background-color: #3c4133; border: #3c4133; ">Обратно в събития</button>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="portfolio-info">
+                    <h3>Информация за събитието</h3>
+                    <ul>
+                        <li><span class="badge" style="background-color: #94c045;">@Model.Category.Name</span></li>
+                        <li><strong>Място</strong>: @Model.Place</li>
+                        <li><strong>Цена</strong>: @Model.Price лв.</li>
+                    </ul>
+                </div>
+                <div class="portfolio-description">
+                    <h2>Описание</h2>
+                    <p>
+                        @Model.Description
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>

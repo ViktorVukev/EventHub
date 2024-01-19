@@ -1,0 +1,25 @@
+﻿@model Category
+
+<div class="container">
+    <div class="spacer"></div>
+
+    <h1>Изтрий категория</h1>
+
+    <form method="post">
+        <div class="form-group">
+            <label for="categoryName" class="form-label mt-4">Име на категорията</label>
+            <input asp-for="Name" disabled type="text" class="form-control" id="categoryName" placeholder="Напр. концерти">
+        </div>
+        <div class="form-group">
+            <label for="categoryDescription" class="form-label mt-4">Описание на категорията</label>
+            <textarea asp-for="Description" disabled type="text" class="form-control" id="categoryDescription"> </textarea>
+        </div>
+
+        <div class="spacer"></div>
+        <button type="submit" class="btn btn-danger">Изтрий</button>
+        <a asp-controller="Category" asp-action="Index" class="btn btn-secondary">Обратно към категориите</a>
+        <div class="spacer"></div>
+
+    </form>
+
+</div>
